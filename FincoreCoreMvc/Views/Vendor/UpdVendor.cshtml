@@ -1,0 +1,49 @@
+﻿@model Vendor
+
+<form method="post">
+
+    <input type="hidden" asp-for="VendorId" />
+    <input type="hidden" asp-for="CreatedBy" />
+    <input type="hidden" asp-for="CreatedAt" />
+
+    Vendor Code
+    <input type="text" class="form-control" asp-for="VendorCode" />
+    <br />
+
+    Company
+    <select class="form-control"
+            asp-for="company_id"
+            asp-items="@ViewBag.Company">
+        <option value="">Select Company</option>
+    </select>
+    <br />
+
+    Bank Account
+    <input type="text" class="form-control" asp-for="BankAccount" />
+    <br />
+
+    PAN
+    <input type="text" class="form-control" asp-for="PAN" />
+    <br />
+
+    Performance Score
+    <input type="number" class="form-control" asp-for="PerformanceScore" />
+    <br />
+
+    Is Verified
+    <select asp-for="IsVerified" class="form-control">
+        <option value="0">Not Verified</option>
+        <option value="1">Verified</option>
+    </select>
+    <br />
+
+    Status
+    <select asp-for="IsActive" class="form-control">
+        <option value="0">Inactive</option>
+        <option value="1">Active</option>
+    </select>
+    <br />
+
+    <input type="submit" value="Update" class="btn btn-info" />
+
+</form>
