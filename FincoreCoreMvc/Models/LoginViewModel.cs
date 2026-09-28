@@ -4,10 +4,11 @@ namespace FincoreCoreMvc.Models
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         public string email { get; set; }
 
-        [Required]
+
+        [Required(ErrorMessage = "Password is required")]
         public string pass { get; set; }
     }
 }
