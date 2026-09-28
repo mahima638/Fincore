@@ -309,6 +309,9 @@ namespace FincoreCoreMvc.Migrations
                     b.Property<int?>("modified_by")
                         .HasColumnType("int");
 
+                    b.Property<int>("user_id")
+                        .HasColumnType("int");
+
                     b.HasKey("department_id");
 
                     b.ToTable("Department");
@@ -784,6 +787,11 @@ namespace FincoreCoreMvc.Migrations
                     b.Navigation("permissions");
 
                     b.Navigation("users");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.State", b =>
+                {
+                    b.Navigation("cities");
                 });
 #pragma warning restore 612, 618
         }

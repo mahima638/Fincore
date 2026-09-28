@@ -15,28 +15,31 @@ namespace FincoreCoreMvc.Models
 
 
         [Required]
-        public string full_name { get; set; }
+        public string ? full_name { get; set; }
         [Required]
-        public string email { get; set; }
+        public string ?  email { get; set; }
         [Required]
-        public string pass { get; set; }
+        public string ? pass { get; set; }
         [Required]
-        public string phone { get; set; }
+        public string ? phone { get; set; }
 
-        public byte is_active { get; set; }
+        public byte ? is_active { get; set; }
 
 
         //[ForeignKey("user_id")]
         public int created_by { get; set; }
         // public User user { get; set; }
 
-        public DateTime created_at { get; set; }
+        public DateTime ? created_at { get; set; }
 
         public DateTime? modified_at { get; set; }
 
 
-        // ForeignKey[("user_id")]
+        [ForeignKey("ModifiedByUser")]
         public int? modified_by { get; set; }
+        public User? ModifiedByUser { get; set; }
+
+
 
     }
 }
