@@ -8,8 +8,9 @@ namespace FincoreCoreMvc.Models
         [Key]
         public int user_id { get; set; }
 
-        [ForeignKey("role_id")]
         public int role_id { get; set; }
+
+        [ForeignKey("role_id")]
         public Role role { get; set; }
 
 
@@ -27,7 +28,7 @@ namespace FincoreCoreMvc.Models
 
         //[ForeignKey("user_id")]
         public int created_by { get; set; }
-        //  public User user { get; set; }
+        // public User user { get; set; }
 
         public DateTime created_at { get; set; }
 
