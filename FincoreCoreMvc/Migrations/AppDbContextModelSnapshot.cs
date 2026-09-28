@@ -363,7 +363,7 @@ namespace FincoreCoreMvc.Migrations
 
                     b.HasIndex("country_id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("FincoreCoreMvc.Models.Country", b =>
@@ -418,7 +418,64 @@ namespace FincoreCoreMvc.Migrations
 
                     b.HasIndex("ModifiedBy");
 
-                    b.ToTable("Department");
+                    b.ToTable("department");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Employee", b =>
+                {
+                    b.Property<int>("employee_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("employee_id"));
+
+                    b.Property<int>("company_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("company_id1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("department_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("department_id1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("designation_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("designationrole_id")
+                        .HasColumnType("int");
+
+                    b.Property<byte?>("is_active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("joining_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("reporting_manager_id")
+                        .HasColumnType("int")
+                        .HasColumnName("Reporting Manager");
+
+                    b.Property<int>("user_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("user_id1")
+                        .HasColumnType("int");
+
+                    b.HasKey("employee_id");
+
+                    b.HasIndex("company_id1");
+
+                    b.HasIndex("department_id1");
+
+                    b.HasIndex("designationrole_id");
+
+                    b.HasIndex("reporting_manager_id");
+
+                    b.HasIndex("user_id1");
+
+                    b.ToTable("employee");
                 });
 
             modelBuilder.Entity("FincoreCoreMvc.Models.ExpenseClaims", b =>
@@ -564,7 +621,7 @@ namespace FincoreCoreMvc.Migrations
 
                     b.HasIndex("role_id");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("permission");
                 });
 
             modelBuilder.Entity("FincoreCoreMvc.Models.Role", b =>
@@ -575,7 +632,7 @@ namespace FincoreCoreMvc.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("role_id"));
 
-                    b.Property<int>("CreatedBy")
+                    b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<int>("ModifiedBy")
@@ -602,7 +659,7 @@ namespace FincoreCoreMvc.Migrations
 
                     b.HasIndex("ModifiedBy");
 
-                    b.ToTable("Role");
+                    b.ToTable("role");
                 });
 
             modelBuilder.Entity("FincoreCoreMvc.Models.State", b =>
@@ -637,7 +694,7 @@ namespace FincoreCoreMvc.Migrations
                     b.Property<DateTime?>("created_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("created_by")
+                    b.Property<int?>("created_by")
                         .HasColumnType("int");
 
                     b.Property<string>("email")
@@ -930,6 +987,47 @@ namespace FincoreCoreMvc.Migrations
                     b.Navigation("ModifiedByUser");
                 });
 
+            modelBuilder.Entity("FincoreCoreMvc.Models.Employee", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.Company", "company")
+                        .WithMany()
+                        .HasForeignKey("company_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Department", "department")
+                        .WithMany()
+                        .HasForeignKey("department_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Role", "designation")
+                        .WithMany()
+                        .HasForeignKey("designationrole_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Employee", "reporting_manager")
+                        .WithMany()
+                        .HasForeignKey("reporting_manager_id");
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("user_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("company");
+
+                    b.Navigation("department");
+
+                    b.Navigation("designation");
+
+                    b.Navigation("reporting_manager");
+
+                    b.Navigation("user");
+                });
+
             modelBuilder.Entity("FincoreCoreMvc.Models.ExpenseClaims", b =>
                 {
                     b.HasOne("FincoreCoreMvc.Models.User", "ApprovedByUser")
@@ -1012,8 +1110,7 @@ namespace FincoreCoreMvc.Migrations
                     b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
                         .WithMany()
@@ -1044,7 +1141,7 @@ namespace FincoreCoreMvc.Migrations
                     b.HasOne("FincoreCoreMvc.Models.Role", "role")
                         .WithMany("users")
                         .HasForeignKey("role_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ModifiedByUser");

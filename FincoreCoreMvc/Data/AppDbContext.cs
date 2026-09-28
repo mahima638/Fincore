@@ -12,6 +12,15 @@ namespace FincoreCoreMvc.Data
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> role { get; set; }
+        public DbSet<Permissions> permission { get; set; }
+        public DbSet<Company> company { get; set; }
+
+        public DbSet<Department> department { get; set; }
+        public DbSet<Employee> employee { get; set; }
+       
+
+
         public DbSet<AccountMasters> AccountMasters { get; set; }
 
         public DbSet<BudgetLines> BudgetLines { get; set; }
@@ -209,6 +218,11 @@ namespace FincoreCoreMvc.Data
                 .WithMany()
                 .HasForeignKey(x => x.ModifiedBy)
                 .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<User>()
+    .HasOne(x => x.role)
+    .WithMany(x => x.users)
+    .HasForeignKey(x => x.role_id)
+    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

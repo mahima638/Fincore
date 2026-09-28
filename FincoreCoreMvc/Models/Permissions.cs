@@ -15,7 +15,7 @@ namespace FincoreCoreMvc.Models
 
         [Required]
         [ForeignKey("CreatedByUser")]
-        public int CreatedBy { get; set; }
+        public int ? CreatedBy { get; set; }
         public User CreatedByUser { get; set; }
 
         public DateTime ?  created_at { get; set; }
@@ -24,7 +24,7 @@ namespace FincoreCoreMvc.Models
 
         [Required]
         [ForeignKey("ModifiedByUser")]
-        public int ModifiedBy { get; set; }
+        public int ? ModifiedBy { get; set; }
         public User ModifiedByUser { get; set; }
 
         public int ? role_id { get; set; }
