@@ -9,6 +9,8 @@ namespace FincoreCoreMvc.Data
         {
         }
 
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<User> Users { get; set; }
