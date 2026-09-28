@@ -1,0 +1,42 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FincoreCoreMvc.Models
+{
+    public class OpexRequests
+    {
+        [Key]
+        public int Opex_Request_Id { get; set; }
+
+        public int Budget_Line_Id { get; set; }
+
+        [ForeignKey("Budget_Line_Id")]
+        public BudgetLines BudgetLine { get; set; }
+
+        public string Title { get; set; }
+
+        public decimal Amount { get; set; }
+
+        public int Requested_By { get; set; }
+
+        [ForeignKey("Requested_By")]
+        public User RequestedByUser { get; set; }
+
+        public string Approval_Status { get; set; }
+
+        public int? Approved_By { get; set; }
+
+        [ForeignKey("Approved_By")]
+        public User ApprovedByUser { get; set; }
+
+        public DateTime? Approved_At { get; set; }
+
+        public DateTime? Created_At { get; set; }
+
+        public DateTime? Modified_At { get; set; }
+
+        public List<ExpenseClaims> ExpenseClaims { get; set; }
+
+        //public List<WorkOrders> WorkOrders { get; set; }
+    }
+}
