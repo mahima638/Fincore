@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FincoreCoreMvc.Models
 {
     public class Company
     {
+        [Key]
         public int company_id { get; set; }
         public string company_name { get; set; }
 

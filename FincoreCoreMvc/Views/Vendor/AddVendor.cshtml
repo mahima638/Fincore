@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Vendor
+
+<form method="post">
+
+    Vendor Code
+    <input type="text" class="form-control" asp-for="VendorCode" />
+    <br />
+
+    Company
+    <select class="form-control" asp-for="company_id" asp-items="@ViewBag.Company">
+        <option value="">Select Company</option>
+    </select>
+    <br />
+
+    Bank Account
+    <input type="text" class="form-control" asp-for="BankAccount" />
+    <br />
+
+    PAN
+    <input type="text" class="form-control" asp-for="PAN" />
+    <br />
+
+    Performance Score
+    <input type="number" class="form-control" asp-for="PerformanceScore" />
+    <br />
+
+    Is Verified
+    <select asp-for="IsVerified" class="form-control">
+        <option value="">Select verification status</option>
+        <option value="true">Verified</option>
+        <option value="false">Not Verified</option>
+    </select>
+    <br />
+
+    Status
+    <select asp-for="IsActive" class="form-control">
+        <option value="">Select status</option>
+        <option value="true">Active</option>
+        <option value="false">InActive</option>
+    </select>
+    <br />
+
+    <input type="submit" value="Save" class="btn btn-info" />
+
+</form>
