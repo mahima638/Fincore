@@ -17,7 +17,7 @@ namespace FincoreCoreMvc.Models
 
         [ForeignKey("CreatedByUser")]
         public int CreatedBy { get; set; }
-        public User CreatedByUser { get; set; }
+        public User ? CreatedByUser { get; set; }
 
         public DateTime ? created_at { get; set; }
 
