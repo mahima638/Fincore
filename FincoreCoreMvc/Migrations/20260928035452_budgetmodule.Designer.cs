@@ -4,6 +4,7 @@ using FincoreCoreMvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FincoreCoreMvc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260928035452_budgetmodule")]
+    partial class budgetmodule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,9 +310,6 @@ namespace FincoreCoreMvc.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("modified_by")
-                        .HasColumnType("int");
-
-                    b.Property<int>("user_id")
                         .HasColumnType("int");
 
                     b.HasKey("department_id");
@@ -787,11 +787,6 @@ namespace FincoreCoreMvc.Migrations
                     b.Navigation("permissions");
 
                     b.Navigation("users");
-                });
-
-            modelBuilder.Entity("FincoreCoreMvc.Models.State", b =>
-                {
-                    b.Navigation("cities");
                 });
 #pragma warning restore 612, 618
         }
