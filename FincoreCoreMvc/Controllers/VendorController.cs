@@ -71,5 +71,6 @@ namespace FincoreCoreMvc.Controllers
             await vendorService.UpdVendor(vnd);
             return RedirectToAction("Index");
         }
+
     }
 }
