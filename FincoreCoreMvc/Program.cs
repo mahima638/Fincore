@@ -25,6 +25,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
+
+builder.Services.AddScoped<IPOService, POService>();
+
 var app = builder.Build();
 
 

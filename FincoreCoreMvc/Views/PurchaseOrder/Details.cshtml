@@ -1,0 +1,102 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model FincoreCoreMvc.Models.PurchaseOrder
+
+@{
+    ViewData["Title"] = "PO Details - " + Model.POCode;
+}
+
+<div class="container mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">@Model.POCode</h2>
+            <span class="badge bg-secondary">Purchase Order Details</span>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+            @if (Model.Status == "Draft" || Model.Status == "Rejected")
+            {
+                <a asp-action="Edit" asp-route-id="@Model.POId" class="btn btn-primary">Edit Order</a>
+            }
+        </div>
+    </div>
+
+    <!-- Header Summary Card -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Vendor ID</small>
+                    <span class="fw-bold fs-6">Vendor #@Model.VendorId</span>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Order Date</small>
+                    <span class="fw-bold fs-6">@Model.OrderDate.ToString("dd-MMMM-yyyy")</span>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Status</small>
+                    <span class="badge bg-primary fs-6">@Model.Status</span>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Quotation Link</small>
+                    <span class="fw-bold fs-6">@(Model.QuotationId.HasValue ? "QTN #" + Model.QuotationId : "Direct Order")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Line Items Table -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="card-title fw-bold mb-0">Ordered Items</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-3">#</th>
+                            <th>Item Name</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Tax Rate</th>
+                            <th>Tax Amount</th>
+                            <th class="text-end pe-3">Line Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Items != null && Model.Items.Count > 0)
+                        {
+                            int count = 1;
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td class="ps-3 text-muted">@count</td>
+                                    <td class="fw-bold">@item.ItemName</td>
+                                    <td class="text-muted small">@(string.IsNullOrWhiteSpace(item.ItemDescription) ? "-" : item.ItemDescription)</td>
+                                    <td>@item.Quantity @item.UnitOfMaterial</td>
+                                    <td>₹@item.UnitPrice.ToString("N2")</td>
+                                    <td>@item.TaxPercentage%</td>
+                                    <td>₹@item.TaxAmount.ToString("N2")</td>
+                                    <td class="text-end pe-3 fw-bold">₹@item.LineTotal.ToString("N2")</td>
+                                </tr>
+                                count++;
+                            }
+                        }
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <td colspan="7" class="text-end fw-bold fs-5">Grand Total:</td>
+                            <td class="text-end pe-3 fw-bold fs-5 text-primary">₹@Model.Amount.ToString("N2")</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
