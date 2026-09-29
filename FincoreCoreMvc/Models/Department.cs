@@ -16,18 +16,18 @@ namespace FincoreCoreMvc.Models
         [ForeignKey("branch_id")]
         public int branch_id { get; set; }
 
-
-        //[ForeignKey("user_id")]
-        public int created_by { get; set; }
-        //  public User user { get; set; }
+        [Required]
+        [ForeignKey("CreatedByUser")]
+        public int ? CreatedBy { get; set; }
+        public User CreatedByUser { get; set; }
 
         public DateTime created_at { get; set; }
 
-        public DateTime? modified_at { get; set; }
 
-
-        // ForeignKey[("user_id")]
-        public int? modified_by { get; set; }
+        [Required]
+        [ForeignKey("ModifiedByUser")]
+        public int ? ModifiedBy { get; set; }
+        public User ModifiedByUser { get; set; }
 
     }
 }

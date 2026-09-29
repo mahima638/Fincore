@@ -1,9 +1,17 @@
 using FincoreCoreMvc.Data;
 using FincoreCoreMvc.Interface;
 using FincoreCoreMvc.Service;
+using FincoreCoreMvc.Models;
+using FincoreCoreMvc.Service;
+using FincoreCoreMvc.Service.Budget;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -11,9 +19,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAPInvoiceService, APInvoiceService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
+builder.Services.AddScoped<IBudgets, BudgetsServices>();
+builder.Services.AddScoped<IAssets, AssetsService>();
+builder.Services.AddScoped<IRevenue, RevenueServices>();
+builder.Services.AddScoped<IARInvoice, ARInvoiceService>();
+
+builder.Services.AddScoped<IVendorService, VendorService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPOService, POService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
+
+
+
 var app = builder.Build();
 
 
@@ -34,7 +53,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Vendor}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

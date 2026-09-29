@@ -9,30 +9,30 @@ namespace FincoreCoreMvc.Models
         public int cost_center_id { get; set; }
 
         [ForeignKey("company_id")]
-        public int company_id { get; set; }
+        public int ?  company_id { get; set; }
         public Company company { get; set; }
 
         [ForeignKey("department_id")]
-        public int department_id { get; set; }
-        public Department department { get; set; }
+        public int  ? department_id { get; set; }
+        public Department  department { get; set; }
 
 
-        public string cost_center_name { get; set; }
+        public string  ? cost_center_name { get; set; }
 
         public string? cost_center_description { get; set; }
 
-        public byte is_active { get; set; }
+        public byte  ? is_active { get; set; }
 
-        //[ForeignKey("user_id")]
-        public int created_by { get; set; }
+        [ForeignKey("user_id")]
+        public int ?  created_by { get; set; }
 
 
-        public DateTime created_at { get; set; }
+        public DateTime  ? created_at { get; set; }
 
         public DateTime? modified_at { get; set; }
 
 
-        // ForeignKey[("user_id")]
+        [ForeignKey("user_id")]
         public int? modified_by { get; set; }
     }
 }
