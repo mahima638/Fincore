@@ -82,8 +82,12 @@ namespace FincoreCoreMvc.Service
 
         public async Task UpdateAsset(Assets a)
         {
-            db.asset.Update(a);
-            await db.SaveChangesAsync();
+            var data = await db.asset.FindAsync(a);
+            if (data != null)
+            {
+
+                await db.SaveChangesAsync();
+            }
         }
     }
 }

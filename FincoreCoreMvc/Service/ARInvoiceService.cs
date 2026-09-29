@@ -2,6 +2,7 @@
 using FincoreCoreMvc.Interface;
 using FincoreCoreMvc.Models;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FincoreCoreMvc.Service
 {
@@ -32,8 +33,12 @@ namespace FincoreCoreMvc.Service
 
         public async Task UpdateARInvoice(ARInvoice a)
         {
-            db.ARInvoices.Update(a);
-            await db.SaveChangesAsync();
+            var data =await db.ARInvoices.FindAsync(a);
+            if (data != null)
+            {
+                
+                await db.SaveChangesAsync();
+            }
         }
 
         public async Task deletearinvoice(int id)

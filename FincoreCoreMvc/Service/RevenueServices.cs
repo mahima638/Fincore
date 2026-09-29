@@ -38,8 +38,12 @@ namespace FincoreCoreMvc.Service
 
         public async Task UpdateRevenue(RevenueEntry r)
         {
-            db.revenue_entry.Update(r);
-            await db.SaveChangesAsync();
+            var data = await db.revenue_entry.FindAsync(r);
+            if (data != null)
+            {
+
+                await db.SaveChangesAsync();
+            }
         }
         public async Task deleterevenue(int id)
         {
