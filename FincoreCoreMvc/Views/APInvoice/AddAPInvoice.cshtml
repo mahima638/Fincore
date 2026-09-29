@@ -1,0 +1,121 @@
+﻿@model APInvoice
+
+<form method="post">
+
+    Invoice Number
+
+    <input type="text"
+           asp-for="InvoiceNumber"
+           class="form-control" />
+
+    <br />
+
+
+    Vendor
+
+    <select class="form-control"
+            asp-for="VendorId"
+            asp-items="@ViewBag.vendors">
+
+        <option value="">-- Select Vendor --</option>
+
+    </select>
+
+    <br />
+
+
+    Purchase Order
+
+    <select class="form-control"
+            asp-for="POId"
+            asp-items="@ViewBag.purchaseorders">
+
+        <option value="">-- Select Purchase Order --</option>
+
+    </select>
+
+    <br />
+
+
+    Invoice Date
+
+    <input type="date"
+           asp-for="InvoiceDate"
+           class="form-control" />
+
+    <br />
+
+
+    Due Date
+
+    <input type="date"
+           asp-for="DueDate"
+           class="form-control" />
+
+    <br />
+
+
+    Amount
+
+    <input type="number"
+           asp-for="Amount"
+           class="form-control" />
+
+    <br />
+
+
+    Approved By
+
+    <select class="form-control"
+            asp-for="ApprovedBy"
+            asp-items="@ViewBag.users">
+
+        <option value="">-- Select User --</option>
+
+    </select>
+
+    <br />
+
+
+    Approval Status
+
+    <select class="form-control"
+            asp-for="ApprovalStatus">
+
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+
+    </select>
+
+    <br />
+
+
+    Payment Status
+
+    <select class="form-control"
+            asp-for="PaymentStatus">
+
+        <option value="Unpaid">Unpaid</option>
+        <option value="Partially Paid">Partially Paid</option>
+        <option value="Paid">Paid</option>
+
+    </select>
+
+    <br />
+
+
+    Invoice File
+
+    <input type="text"
+           asp-for="InvoiceFile"
+           class="form-control" />
+
+    <br />
+
+
+    <input type="submit"
+           value="Save"
+           class="btn btn-info" />
+
+</form>

@@ -1,0 +1,103 @@
+﻿@model List<Payment>
+
+<a asp-action="AddPayment" class="btn btn-primary">
+    Add Payment
+</a>
+
+<br />
+<br />
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>Payment ID</th>
+            <th>Payment Number</th>
+            <th>Payment Type</th>
+            <th>AP Invoice</th>
+            <th>AR Invoice</th>
+            <th>Vendor</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Payment Method</th>
+            <th>Approved By</th>
+            <th>Approval Status</th>
+            <th>Reconciled</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var d in Model)
+        {
+            <tr>
+
+                <td>
+                    @d.PaymentId
+                </td>
+
+                <td>
+                    @d.PaymentNumber
+                </td>
+
+                <td>
+                    @d.PaymentType
+                </td>
+
+                <td>
+                    @d.APInvoice?.InvoiceNumber
+                </td>
+
+                <td>
+                    @d.ARInvoice?.InvoiceNumber
+                </td>
+
+                <td>
+                    @d.Vendor?.VendorCode
+                </td>
+
+                <td>
+                    @d.Customer?.CustomerCode
+                </td>
+
+                <td>
+                    @d.Amount
+                </td>
+
+                <td>
+                    @d.PaymentDate.ToShortDateString()
+                </td>
+
+                <td>
+                    @d.PaymentMethod
+                </td>
+
+                <td>
+                    @d.ApprovedByUser?.full_name
+                </td>
+
+                <td>
+                    @d.ApprovalStatus
+                </td>
+
+                <td>
+                    @d.ReconciledFlag
+                </td>
+
+                <td>
+                    <a onclick="return confirm('Are you Sure?')"
+                       asp-action="DelPayment"
+                       asp-route-id="@d.PaymentId"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

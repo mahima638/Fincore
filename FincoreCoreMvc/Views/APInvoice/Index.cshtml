@@ -1,0 +1,70 @@
+﻿@model List<APInvoice>
+
+<a asp-action="AddAPInvoice" class="btn btn-primary">
+    Add AP Invoice
+</a>
+
+<br />
+<br />
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>Invoice ID</th>
+            <th>Invoice Number</th>
+            <th>Vendor</th>
+            <th>Purchase Order</th>
+            <th>Invoice Date</th>
+            <th>Due Date</th>
+            <th>Amount</th>
+            <th>Approval Status</th>
+            <th>Payment Status</th>
+            <th>Approved By</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var d in Model)
+        {
+            <tr>
+
+                <td>@d.APInvoiceId</td>
+
+                <td>@d.InvoiceNumber</td>
+
+                <td>@d.Vendor.VendorCode</td>
+
+                <td>@d.PurchaseOrder.POCode</td>
+
+                <td>@d.InvoiceDate.ToShortDateString()</td>
+
+                <td>@d.DueDate.ToShortDateString()</td>
+
+                <td>@d.Amount</td>
+
+                <td>@d.ApprovalStatus</td>
+
+                <td>@d.PaymentStatus</td>
+
+                <td>
+                    @d.ApprovedByUser?.full_name
+                </td>
+
+                <td>
+                    <a onclick="return confirm('Are you Sure?')"
+                       asp-action="DelAPInvoice"
+                       asp-route-id="@d.APInvoiceId"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>
