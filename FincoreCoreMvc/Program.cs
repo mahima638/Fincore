@@ -26,6 +26,9 @@ builder.Services.AddScoped<IARInvoice, ARInvoiceService>();
 
 builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPOService, POService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>

@@ -1,0 +1,61 @@
+﻿<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/Role.js"></script>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Role
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <form  id="roleform" method="post">
+                   Role Name : <input type="text" name="role_name" class="form-control" />
+
+                   Role Description : <input type="text" name="description" class="form-control" />
+
+                   Status :
+                    <select name="isActive">
+                       <option value=1>
+                           Active
+                       </option>
+                        <option value=0>
+                            InActive
+                        </option>
+                   </select>
+                   <input type="button" value="Save" id="savebtn" class="btn btn-primary" />
+
+               </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered mt-4" id="roletable">
+    <thead>
+        <tr>
+            <th>ID: </th>
+            <th> Role Name </th>
+
+            <th>Description:  </th>
+
+           
+
+        </tr>
+    </thead>
+
+    <tbody id="rolebody"></tbody>
+</table>
+
+
+
