@@ -1,0 +1,238 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model FincoreCoreMvc.Models.PurchaseOrder
+
+@{
+    ViewData["Title"] = "Create Purchase Order";
+}
+
+<div class="container mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="fw-bold mb-0">New Purchase Order</h2>
+            <p class="text-muted">Fill out the details and add items below</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+
+    <form asp-action="Create" method="post" id="poForm">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <!-- Header Card -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title fw-bold mb-0">1. Order Header Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">PO Code (Auto)</label>
+                        <input asp-for="POCode" class="form-control bg-light" value="@ViewBag.NextPOCode" readonly />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Vendor ID *</label>
+                        <input asp-for="VendorId" type="number" class="form-control" placeholder="e.g. 1" required />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Quotation ID (Optional)</label>
+                        <input asp-for="QuotationId" type="number" class="form-control" placeholder="e.g. 101" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Order Date</label>
+                        <input asp-for="OrderDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Line Items Card -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="card-title fw-bold mb-0">2. Line Items</h5>
+                <button type="button" class="btn btn-sm btn-primary" id="btnAddRow">
+                    + Add Item Row
+                </button>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle mb-0" id="itemsTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 25%;">Item Name *</th>
+                                <th style="width: 15%;">Unit of Material</th>
+                                <th style="width: 12%;">Qty *</th>
+                                <th style="width: 15%;">Unit Price (₹) *</th>
+                                <th style="width: 12%;">GST (%)</th>
+                                <th style="width: 15%;">Line Total (₹)</th>
+                                <th style="width: 6%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody">
+                            <!-- First Default Row -->
+                            <tr class="item-row">
+                                <td>
+                                    <input type="text" name="Items[0].ItemName" class="form-control" placeholder="Item Name" required />
+                                    <input type="text" name="Items[0].ItemDescription" class="form-control form-control-sm mt-1 text-muted" placeholder="Optional specs..." />
+                                </td>
+                                <td>
+                                    <input type="text" name="Items[0].UnitOfMaterial" class="form-control" value="Units" placeholder="e.g. Kg, Units" />
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" name="Items[0].Quantity" class="form-control item-qty" value="1" min="0.01" required />
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" name="Items[0].UnitPrice" class="form-control item-price" value="0.00" min="0" required />
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" name="Items[0].TaxPercentage" class="form-control item-tax" value="18" min="0" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control bg-light item-total fw-bold text-end" value="0.00" readonly />
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-outline-danger btn-sm btn-delete-row" disabled>&times;</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Live Calculation Summary -->
+            <div class="card-footer bg-light p-3">
+                <div class="row justify-content-end">
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Subtotal (Excl. Tax):</span>
+                            <span class="fw-semibold" id="lblSubtotal">₹0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Total GST Tax:</span>
+                            <span class="fw-semibold text-danger" id="lblTotalTax">₹0.00</span>
+                        </div>
+                        <hr class="my-1" />
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-bold fs-5">Grand Total:</span>
+                            <span class="fw-bold fs-5 text-primary" id="lblGrandTotal">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+            <a asp-action="Index" class="btn btn-light px-4">Cancel</a>
+            <button type="submit" class="btn btn-success px-5 fw-bold">Save Purchase Order</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        let rowIndex = 1;
+
+        // Add new row dynamically
+        $("#btnAddRow").click(function() {
+            let newRow = `
+                <tr class="item-row">
+                    <td>
+                        <input type="text" name="Items[${rowIndex}].ItemName" class="form-control" placeholder="Item Name" required />
+                        <input type="text" name="Items[${rowIndex}].ItemDescription" class="form-control form-control-sm mt-1 text-muted" placeholder="Optional specs..." />
+                    </td>
+                    <td>
+                        <input type="text" name="Items[${rowIndex}].UnitOfMaterial" class="form-control" value="Units" placeholder="e.g. Kg, Units" />
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" name="Items[${rowIndex}].Quantity" class="form-control item-qty" value="1" min="0.01" required />
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" name="Items[${rowIndex}].UnitPrice" class="form-control item-price" value="0.00" min="0" required />
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" name="Items[${rowIndex}].TaxPercentage" class="form-control item-tax" value="18" min="0" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control bg-light item-total fw-bold text-end" value="0.00" readonly />
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-outline-danger btn-sm btn-delete-row">&times;</button>
+                    </td>
+                </tr>`;
+
+            $("#itemsBody").append(newRow);
+            rowIndex++;
+            updateDeleteButtons();
+            calculateTotals();
+        });
+
+        // Remove row
+        $(document).on("click", ".btn-delete-row", function() {
+            if ($(".item-row").length > 1) {
+                $(this).closest("tr").remove();
+                reindexRows();
+                calculateTotals();
+            }
+        });
+
+        // Re-index row attributes for clean ASP.NET model binding
+        function reindexRows() {
+            $(".item-row").each(function(idx) {
+                $(this).find("input").each(function() {
+                    let name = $(this).attr("name");
+                    if (name) {
+                        let newName = name.replace(/Items\[\d+\]/, `Items[${idx}]`);
+                        $(this).attr("name", newName);
+                    }
+                });
+            });
+            rowIndex = $(".item-row").length;
+            updateDeleteButtons();
+        }
+
+        function updateDeleteButtons() {
+            if ($(".item-row").length === 1) {
+                $(".btn-delete-row").prop("disabled", true);
+            } else {
+                $(".btn-delete-row").prop("disabled", false);
+            }
+        }
+
+        // Live calculation on input
+        $(document).on("input", ".item-qty, .item-price, .item-tax", function() {
+            calculateTotals();
+        });
+
+        function calculateTotals() {
+            let subtotal = 0;
+            let totalTax = 0;
+
+            $(".item-row").each(function() {
+                let qty = parseFloat($(this).find(".item-qty").val()) || 0;
+                let price = parseFloat($(this).find(".item-price").val()) || 0;
+                let taxPct = parseFloat($(this).find(".item-tax").val()) || 0;
+
+                let base = qty * price;
+                let tax = base * (taxPct / 100);
+                let total = base + tax;
+
+                $(this).find(".item-total").val("₹" + total.toFixed(2));
+
+                subtotal += base;
+                totalTax += tax;
+            });
+
+            let grandTotal = subtotal + totalTax;
+
+            $("#lblSubtotal").text("₹" + subtotal.toFixed(2));
+            $("#lblTotalTax").text("₹" + totalTax.toFixed(2));
+            $("#lblGrandTotal").text("₹" + grandTotal.toFixed(2));
+        }
+
+        $(document).ready(function() {
+            calculateTotals();
+        });
+    </script>
+}
+
