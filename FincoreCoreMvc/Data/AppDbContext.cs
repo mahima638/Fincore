@@ -42,7 +42,7 @@ namespace FincoreCoreMvc.Data
 
         public DbSet<OpexRequests> OpexRequests { get; set; }
         public DbSet<GRN> grn { get; set; }
-        public DbSet<Department> department { get; set; }
+        public DbSet<Department> Department { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
