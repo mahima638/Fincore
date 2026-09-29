@@ -22,18 +22,732 @@ namespace FincoreCoreMvc.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FincoreCoreMvc.Models.PurchaseOrder", b =>
+            modelBuilder.Entity("FincoreCoreMvc.Models.AccountMasters", b =>
                 {
-                    b.Property<int>("POId")
+                    b.Property<int>("Account_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("POId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Account_Id"));
 
-                    b.Property<decimal>("Amount")
+                    b.Property<string>("Account_Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Account_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Account_Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Created_By")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Is_Active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("Modified_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Modified_By")
+                        .HasColumnType("int");
+
+                    b.HasKey("Account_Id");
+
+                    b.HasIndex("Created_By");
+
+                    b.HasIndex("Modified_By");
+
+                    b.ToTable("AccountMasters");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.BudgetLines", b =>
+                {
+                    b.Property<int>("Budget_Line_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Budget_Line_Id"));
+
+                    b.Property<decimal>("Allocated_Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<int>("Budget_Category_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Budget_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BudgetsCategoriesBudget_Category_Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Created_By")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Is_Active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("Modified_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Modified_By")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Utilized_Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Budget_Line_Id");
+
+                    b.HasIndex("Budget_Category_Id");
+
+                    b.HasIndex("Budget_Id");
+
+                    b.HasIndex("BudgetsCategoriesBudget_Category_Id");
+
+                    b.HasIndex("Created_By");
+
+                    b.HasIndex("Modified_By");
+
+                    b.ToTable("BudgetLines");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Budgets", b =>
+                {
+                    b.Property<int>("Budget_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Budget_Id"));
+
+                    b.Property<decimal>("Budget_Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Budget_Category_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Budget_Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Budget_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Created_By")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("End_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Financial_Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Is_Active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("Modified_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Modified_By")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Start_Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Budget_Id");
+
+                    b.HasIndex("Budget_Category_Id");
+
+                    b.HasIndex("Created_By");
+
+                    b.HasIndex("Modified_By");
+
+                    b.ToTable("Budgets");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.BudgetsCategories", b =>
+                {
+                    b.Property<int>("Budget_Category_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Budget_Category_Id"));
+
+                    b.Property<string>("Categor_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Created_By")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Department_Id")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Is_Active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("Modified_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Modified_By")
+                        .HasColumnType("int");
+
+                    b.HasKey("Budget_Category_Id");
+
+                    b.HasIndex("Created_By");
+
+                    b.HasIndex("Department_Id");
+
+                    b.HasIndex("Modified_By");
+
+                    b.ToTable("BudgetsCategories");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.CapexRequests", b =>
+                {
+                    b.Property<int>("Capex_Request_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Capex_Request_Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Approval_Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Approved_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Approved_By")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Budget_Line_Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Department_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Modified_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Requested_By")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Capex_Request_Id");
+
+                    b.HasIndex("Approved_By");
+
+                    b.HasIndex("Budget_Line_Id");
+
+                    b.HasIndex("Department_Id");
+
+                    b.HasIndex("Requested_By");
+
+                    b.ToTable("CapexRequests");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.City", b =>
+                {
+                    b.Property<int>("city_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("city_id"));
+
+                    b.Property<string>("city_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("state_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("city_id");
+
+                    b.HasIndex("state_id");
+
+                    b.ToTable("City");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Company", b =>
+                {
+                    b.Property<int>("company_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("company_id"));
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("cin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("city_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("company_code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("company_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("contact_number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("country_id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("gstin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte?>("is_active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("modified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("pan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("company_id");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.HasIndex("city_id");
+
+                    b.HasIndex("country_id");
+
+                    b.ToTable("Company");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Country", b =>
+                {
+                    b.Property<int>("country_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("country_id"));
+
+                    b.Property<int?>("country_code")
+                        .HasColumnType("int");
+
+                    b.Property<string>("country_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("country_id");
+
+                    b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Department", b =>
+                {
+                    b.Property<int>("department_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("department_id"));
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("branch_id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("department_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("is_active")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("department_id");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.ToTable("department");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Employee", b =>
+                {
+                    b.Property<int>("employee_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("employee_id"));
+
+                    b.Property<int>("company_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("company_id1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("department_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("department_id1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("designation_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("designationrole_id")
+                        .HasColumnType("int");
+
+                    b.Property<byte?>("is_active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("joining_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("reporting_manager_id")
+                        .HasColumnType("int")
+                        .HasColumnName("Reporting Manager");
+
+                    b.Property<int>("user_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("user_id1")
+                        .HasColumnType("int");
+
+                    b.HasKey("employee_id");
+
+                    b.HasIndex("company_id1");
+
+                    b.HasIndex("department_id1");
+
+                    b.HasIndex("designationrole_id");
+
+                    b.HasIndex("reporting_manager_id");
+
+                    b.HasIndex("user_id1");
+
+                    b.ToTable("employee");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.ExpenseClaims", b =>
+                {
+                    b.Property<int>("Expense_Claim_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Expense_Claim_Id"));
+
+                    b.Property<string>("Approval_Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Approved_By")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Claim_By")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Claim_Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Expense_Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Expense_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Expense_Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Modified_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Opex_Request_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Expense_Claim_Id");
+
+                    b.HasIndex("Approved_By");
+
+                    b.HasIndex("Claim_By");
+
+                    b.HasIndex("Opex_Request_Id");
+
+                    b.ToTable("ExpenseClaims");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.OpexRequests", b =>
+                {
+                    b.Property<int>("Opex_Request_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Opex_Request_Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Approval_Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Approved_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Approved_By")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Budget_Line_Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Modified_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Requested_By")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Opex_Request_Id");
+
+                    b.HasIndex("Approved_By");
+
+                    b.HasIndex("Budget_Line_Id");
+
+                    b.HasIndex("Requested_By");
+
+                    b.ToTable("OpexRequests");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Permissions", b =>
+                {
+                    b.Property<int>("permission_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("permission_id"));
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte?>("is_active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("modified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("permission_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("role_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("permission_id");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.HasIndex("role_id");
+
+                    b.ToTable("permission");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Role", b =>
+                {
+                    b.Property<int>("role_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("role_id"));
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte?>("isActive")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("modified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("role_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("role_id");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.ToTable("role");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.State", b =>
+                {
+                    b.Property<int>("state_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("state_id"));
+
+                    b.Property<int?>("country_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("state_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("state_id");
+
+                    b.HasIndex("country_id");
+
+                    b.ToTable("State");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.User", b =>
+                {
+                    b.Property<int>("user_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("user_id"));
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("full_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte?>("is_active")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime?>("modified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<string>("pass")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("role_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("user_id");
+
+                    b.HasIndex("modified_by");
+
+                    b.HasIndex("role_id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Vendor", b =>
+                {
+                    b.Property<int>("VendorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VendorId"));
+
+                    b.Property<string>("BankAccount")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CreatedBy")
@@ -42,105 +756,465 @@ namespace FincoreCoreMvc.Migrations
                     b.Property<byte>("IsActive")
                         .HasColumnType("tinyint");
 
+                    b.Property<byte?>("IsVerified")
+                        .HasColumnType("tinyint");
+
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ModifiedBy")
+                    b.Property<int>("ModifiedBy")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PAN")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
-                    b.Property<string>("POCode")
+                    b.Property<decimal?>("PerformanceScore")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<string>("VendorCode")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("QuotationId")
+                    b.Property<int>("company_id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.HasKey("VendorId");
 
-                    b.Property<int>("VendorId")
-                        .HasColumnType("int");
+                    b.HasIndex("CreatedBy");
 
-                    b.HasKey("POId");
+                    b.HasIndex("ModifiedBy");
 
-                    b.ToTable("PurchaseOrders");
+                    b.HasIndex("company_id");
+
+                    b.ToTable("Vendors");
                 });
 
-            modelBuilder.Entity("FincoreCoreMvc.Models.PurchaseOrderItem", b =>
+            modelBuilder.Entity("FincoreCoreMvc.Models.AccountMasters", b =>
                 {
-                    b.Property<int>("POItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("Created_By")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("POItemId"));
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("Modified_By")
+                        .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Property<string>("ItemDescription")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Navigation("CreatedByUser");
 
-                    b.Property<string>("ItemName")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("ItemStatus")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<decimal>("LineTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("POId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PRItemId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TaxAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TaxPercentage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UnitOfMaterial")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("POItemId");
-
-                    b.HasIndex("POId");
-
-                    b.ToTable("PurchaseOrderItems");
+                    b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("FincoreCoreMvc.Models.PurchaseOrderItem", b =>
+            modelBuilder.Entity("FincoreCoreMvc.Models.BudgetLines", b =>
                 {
-                    b.HasOne("FincoreCoreMvc.Models.PurchaseOrder", "PurchaseOrder")
-                        .WithMany("Items")
-                        .HasForeignKey("POId")
+                    b.HasOne("FincoreCoreMvc.Models.BudgetsCategories", "BudgetCategory")
+                        .WithMany()
+                        .HasForeignKey("Budget_Category_Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Budgets", "Budget")
+                        .WithMany("BudgetLines")
+                        .HasForeignKey("Budget_Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.BudgetsCategories", null)
+                        .WithMany("BudgetLines")
+                        .HasForeignKey("BudgetsCategoriesBudget_Category_Id");
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("Created_By")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("Modified_By")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Budget");
+
+                    b.Navigation("BudgetCategory");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ModifiedByUser");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Budgets", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.BudgetsCategories", "BudgetCategory")
+                        .WithMany()
+                        .HasForeignKey("Budget_Category_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PurchaseOrder");
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("Created_By")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("Modified_By")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("BudgetCategory");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("FincoreCoreMvc.Models.PurchaseOrder", b =>
+            modelBuilder.Entity("FincoreCoreMvc.Models.BudgetsCategories", b =>
                 {
-                    b.Navigation("Items");
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("Created_By")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("Department_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("Modified_By")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("ModifiedByUser");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.CapexRequests", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "ApprovedByUser")
+                        .WithMany()
+                        .HasForeignKey("Approved_By")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("FincoreCoreMvc.Models.BudgetLines", "BudgetLine")
+                        .WithMany("CapexRequests")
+                        .HasForeignKey("Budget_Line_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("Department_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "RequestedByUser")
+                        .WithMany()
+                        .HasForeignKey("Requested_By")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedByUser");
+
+                    b.Navigation("BudgetLine");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("RequestedByUser");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.City", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.State", "state")
+                        .WithMany("cities")
+                        .HasForeignKey("state_id");
+
+                    b.Navigation("state");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Company", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy");
+
+                    b.HasOne("FincoreCoreMvc.Models.City", "city")
+                        .WithMany()
+                        .HasForeignKey("city_id");
+
+                    b.HasOne("FincoreCoreMvc.Models.Country", null)
+                        .WithMany("companies")
+                        .HasForeignKey("country_id");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ModifiedByUser");
+
+                    b.Navigation("city");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Department", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ModifiedByUser");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Employee", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.Company", "company")
+                        .WithMany()
+                        .HasForeignKey("company_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Department", "department")
+                        .WithMany()
+                        .HasForeignKey("department_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Role", "designation")
+                        .WithMany()
+                        .HasForeignKey("designationrole_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Employee", "reporting_manager")
+                        .WithMany()
+                        .HasForeignKey("reporting_manager_id");
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("user_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("company");
+
+                    b.Navigation("department");
+
+                    b.Navigation("designation");
+
+                    b.Navigation("reporting_manager");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.ExpenseClaims", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "ApprovedByUser")
+                        .WithMany()
+                        .HasForeignKey("Approved_By")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ClaimByUser")
+                        .WithMany()
+                        .HasForeignKey("Claim_By")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.OpexRequests", "OpexRequest")
+                        .WithMany("ExpenseClaims")
+                        .HasForeignKey("Opex_Request_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedByUser");
+
+                    b.Navigation("ClaimByUser");
+
+                    b.Navigation("OpexRequest");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.OpexRequests", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "ApprovedByUser")
+                        .WithMany()
+                        .HasForeignKey("Approved_By")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("FincoreCoreMvc.Models.BudgetLines", "BudgetLine")
+                        .WithMany("OpexRequests")
+                        .HasForeignKey("Budget_Line_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "RequestedByUser")
+                        .WithMany()
+                        .HasForeignKey("Requested_By")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedByUser");
+
+                    b.Navigation("BudgetLine");
+
+                    b.Navigation("RequestedByUser");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Permissions", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Role", "role")
+                        .WithMany("permissions")
+                        .HasForeignKey("role_id");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ModifiedByUser");
+
+                    b.Navigation("role");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Role", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ModifiedByUser");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.State", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.Country", "country")
+                        .WithMany("state")
+                        .HasForeignKey("country_id");
+
+                    b.Navigation("country");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.User", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("modified_by");
+
+                    b.HasOne("FincoreCoreMvc.Models.Role", "role")
+                        .WithMany("users")
+                        .HasForeignKey("role_id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ModifiedByUser");
+
+                    b.Navigation("role");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Vendor", b =>
+                {
+                    b.HasOne("FincoreCoreMvc.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FincoreCoreMvc.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("company_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ModifiedByUser");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.BudgetLines", b =>
+                {
+                    b.Navigation("CapexRequests");
+
+                    b.Navigation("OpexRequests");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Budgets", b =>
+                {
+                    b.Navigation("BudgetLines");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.BudgetsCategories", b =>
+                {
+                    b.Navigation("BudgetLines");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Country", b =>
+                {
+                    b.Navigation("companies");
+
+                    b.Navigation("state");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.OpexRequests", b =>
+                {
+                    b.Navigation("ExpenseClaims");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.Role", b =>
+                {
+                    b.Navigation("permissions");
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("FincoreCoreMvc.Models.State", b =>
+                {
+                    b.Navigation("cities");
                 });
 #pragma warning restore 612, 618
         }

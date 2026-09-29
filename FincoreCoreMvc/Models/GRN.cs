@@ -39,6 +39,7 @@ namespace FincoreCoreMvc.Models
         public string? Remarks { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? ModifiedAt { get; set; }
-        public virtual List<GRNItem> Items { get; set; } = new List<GRNItem>();
+        //public virtual List<GRNItem> Items { get; set; } = new List<GRNItem>();
     }
 }
+
