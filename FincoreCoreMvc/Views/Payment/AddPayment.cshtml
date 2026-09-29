@@ -1,0 +1,185 @@
+﻿@model Payment
+
+<form method="post">
+
+    Payment Number
+
+    <input type="text"
+           asp-for="PaymentNumber"
+           class="form-control" />
+
+    <br />
+
+
+    Payment Type
+
+    <select class="form-control"
+            asp-for="PaymentType">
+
+        <option value="">-- Select Payment Type --</option>
+
+        <option value="Incoming">
+            Incoming
+        </option>
+
+        <option value="Outgoing">
+            Outgoing
+        </option>
+
+    </select>
+
+    <br />
+
+
+    AP Invoice
+
+    <select class="form-control"
+            asp-for="APInvoiceId"
+            asp-items="@ViewBag.apinvoices">
+
+        <option value="">-- Select AP Invoice --</option>
+
+    </select>
+
+    <br />
+
+
+    AR Invoice
+
+    <select class="form-control"
+            asp-for="ARInvoiceId"
+            asp-items="@ViewBag.arinvoices">
+
+        <option value="">-- Select AR Invoice --</option>
+
+    </select>
+
+    <br />
+
+
+    Vendor
+
+    <select class="form-control"
+            asp-for="VendorId"
+            asp-items="@ViewBag.vendors">
+
+        <option value="">-- Select Vendor --</option>
+
+    </select>
+
+    <br />
+
+
+    Customer
+
+    <select class="form-control"
+            asp-for="CustomerId"
+            asp-items="@ViewBag.customers">
+
+        <option value="">-- Select Customer --</option>
+
+    </select>
+
+    <br />
+
+
+    Amount
+
+    <input type="number"
+           asp-for="Amount"
+           class="form-control" />
+
+    <br />
+
+
+    Payment Date
+
+    <input type="date"
+           asp-for="PaymentDate"
+           class="form-control" />
+
+    <br />
+
+
+    Payment Method
+
+    <select class="form-control"
+            asp-for="PaymentMethod">
+
+        <option value="">-- Select Payment Method --</option>
+
+        <option value="Bank">
+            Bank
+        </option>
+
+        <option value="Cash">
+            Cash
+        </option>
+
+        <option value="Cheque">
+            Cheque
+        </option>
+
+    </select>
+
+    <br />
+
+
+    Approved By
+
+    <select class="form-control"
+            asp-for="ApprovedBy"
+            asp-items="@ViewBag.users">
+
+        <option value="">-- Select User --</option>
+
+    </select>
+
+    <br />
+
+
+    Approval Status
+
+    <select class="form-control"
+            asp-for="ApprovalStatus">
+
+        <option value="Pending">
+            Pending
+        </option>
+
+        <option value="Approved">
+            Approved
+        </option>
+
+        <option value="Rejected">
+            Rejected
+        </option>
+
+    </select>
+
+    <br />
+
+
+    Reconciled
+
+    <select class="form-control"
+            asp-for="ReconciledFlag">
+
+        <option value="false">
+            No
+        </option>
+
+        <option value="true">
+            Yes
+        </option>
+
+    </select>
+
+    <br />
+
+
+    <input type="submit"
+           value="Save"
+           class="btn btn-info" />
+
+</form>

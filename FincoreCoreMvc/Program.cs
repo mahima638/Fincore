@@ -1,10 +1,17 @@
 using FincoreCoreMvc.Data;
+using FincoreCoreMvc.Interface;
+using FincoreCoreMvc.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IAPInvoiceService, APInvoiceService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
 var app = builder.Build();
