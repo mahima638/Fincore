@@ -8,7 +8,12 @@ namespace FincoreCoreMvc.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+        public DbSet<Assets> asset { get; set; }
 
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<RevenueEntry> revenue_entry { get; set; }
+
+        public DbSet<ARInvoice> ARInvoices { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
@@ -27,6 +32,8 @@ namespace FincoreCoreMvc.Data
         public DbSet<ExpenseClaims> ExpenseClaims { get; set; }
 
         public DbSet<OpexRequests> OpexRequests { get; set; }
+        public DbSet<GRN> grn { get; set; }
+        public DbSet<Department> department { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

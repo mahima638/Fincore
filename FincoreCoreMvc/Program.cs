@@ -1,6 +1,7 @@
 using FincoreCoreMvc.Data;
-
+using FincoreCoreMvc.Interface;
 using FincoreCoreMvc.Models;
+using FincoreCoreMvc.Service;
 using FincoreCoreMvc.Service.Budget;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBudgets, BudgetsServices>();
+builder.Services.AddScoped<IAssets, AssetsService>();
+builder.Services.AddScoped<IRevenue, RevenueServices>();
+builder.Services.AddScoped<IARInvoice, ARInvoiceService>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
