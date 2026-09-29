@@ -17,16 +17,16 @@ namespace FincoreCoreMvc.Models
 
         [ForeignKey("CreatedByUser")]
         public int ?  CreatedBy { get; set; }
-        public User  CreatedByUser { get; set; }
+        public User ?  CreatedByUser { get; set; }
 
         public DateTime ? created_at { get; set; }
 
         public DateTime ?  modified_at { get; set; }
 
-        [Required]
+      
         [ForeignKey("ModifiedByUser")]
         public int ? ModifiedBy { get; set; }
-        public User ModifiedByUser { get; set; }
+        public User?  ModifiedByUser { get; set; }
         public List<Permissions> ? permissions { get; set; }
 
         public List<User> ?  users { get; set; }

@@ -635,7 +635,7 @@ namespace FincoreCoreMvc.Migrations
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<int>("ModifiedBy")
+                    b.Property<int?>("ModifiedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("created_at")
@@ -1115,8 +1115,7 @@ namespace FincoreCoreMvc.Migrations
                     b.HasOne("FincoreCoreMvc.Models.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("CreatedByUser");
 

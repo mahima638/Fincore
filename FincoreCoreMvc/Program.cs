@@ -18,6 +18,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBudgets, BudgetsServices>();
 builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
