@@ -16,6 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBudgets, BudgetsServices>();
+builder.Services.AddScoped<IAssets, AssetsService>();
+builder.Services.AddScoped<IRevenue, RevenueServices>();
+builder.Services.AddScoped<IARInvoice, ARInvoiceService>();
+
 builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 

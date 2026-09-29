@@ -1,0 +1,45 @@
+﻿@model List<FincoreCoreMvc.Models.Assets>
+
+@{
+    ViewData["Title"] = "Asset List";
+}
+
+<h2>Asset List</h2>
+
+<a asp-controller="Assets"
+   asp-action="RegisterAsset"
+   class="btn btn-primary">
+    Register New Asset
+</a>
+
+<br />
+<br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Asset ID</th>
+            <th>Asset Code</th>
+            <th>Asset Name</th>
+            <th>Vendor</th>
+            <th>Purchase Date</th>
+            <th>Purchase Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AssetsId</td>
+                <td>@item.AssetCode</td>
+                <td>@item.AssetName</td>
+                <td>@item.VendorId</td>
+                <td>@item.PurchaseDate?.ToString("dd-MM-yyyy")</td>
+                <td>@item.PurchaseCost</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
